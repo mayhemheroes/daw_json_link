@@ -21,6 +21,7 @@ set( DAW_JSON_VER_OVERRIDE OFF CACHE STRING "Override the default inline namespa
 option( DAW_USE_PACKAGE_MANAGEMENT "Do not use FetchContent and assume dependencies are installed" OFF )
 option( DAW_ENABLE_TESTING "Build unit tests and examples" OFF )
 option( DAW_JSON_PARSER_DIAGNOSTICS "Define: Output debug info while parsing" OFF )
+option ( DAW_INSTRUMENT_MAYHEM "Instrument library for mayhem fuzzing" OFF )
 
 option( DAW_USE_CPP17_NAMES "Define: Use the C++17 names instead of CNTTP/Static Strings" )
 if( DAW_USE_CPP17_NAMES )
@@ -169,3 +170,8 @@ if( DAW_ENABLE_TESTING )
     add_subdirectory( tests )
 endif()
 
+if ( DAW_INSTRUMENT_MAYHEM )
+    # Add sanitizers
+    set ( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=fuzzer-no-link,undefined" )
+    add_subdirectory( mayhem )
+endif()
