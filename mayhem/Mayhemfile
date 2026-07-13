@@ -1,0 +1,6 @@
+project: daw_json_link
+target: serializer-fuzz
+
+cmds:
+  - cmd: /mayhem/fuzz_serializer
+    libfuzzer: true
